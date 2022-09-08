@@ -8,8 +8,17 @@ class KeyenceTtl():
         self.port = 9004
         self.skt = socket.socket()
 
+    def hook(self):
+        code = self.get_code()
+
+        arrange_code = self.arrange_code(code)
+
+
+
     def get_code(self):
-        self.skt.connect(('169.254.0.2', 9004))
+        host = self.host
+        port = self.port
+        self.skt.connect((host, port))
         self.skt.settimeout(1000)
 
         print('*****START*****')
@@ -18,11 +27,25 @@ class KeyenceTtl():
         self.skt.send(b"LOFF\r")
         print('*****E N D*****')
 
+        code = self.skt.recv(7004).decode('utf-8')
+        # print(code)
 
-        print(self.skt.recv(1024).decode('utf-8'))
         self.skt.close()
+
+        return code
+
+    def arrange_code(self, code):
+        print(code)
+        print(type(code))
+
+        print("**********")
+        sepa = code.split(',')
+        print(sepa)
+        print(type(sepa))
 
 
 if __name__ == "__main__":
-    KeyenceTtl().get_code()
+    KeyenceTtl().hook()
+
+
 
