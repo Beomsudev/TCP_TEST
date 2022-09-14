@@ -9,9 +9,9 @@ print(type(a))
 
 s = socket.socket()
 s.connect(('169.254.0.2', 9004))
-s.settimeout(1000)
+s.settimeout(2000)
 s.send(b"LON\r")
-time.sleep(1)
+time.sleep(2)
 s.send(b"LOFF\r")
 
 print(s.recv(1024).decode('utf-8'))
